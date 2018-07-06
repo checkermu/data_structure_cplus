@@ -14,7 +14,7 @@
 
 建立一个长度大小为 K 的线性表 C ，用来记录不大于每个值元素的个数。
 
-计数排序的本质是通过计算无序集合中 整数出现的次数，来决定集合如何排序。
+计数排序的本质是**通过计算无序集合中 整数出现的次数，来决定集合如何排序**。
 
 一直失败的一点：从0开始，则集合出现的次数-1 才是真正最终存储的下标。
  */
@@ -51,7 +51,7 @@ void CountingSort(int *A,int *B,int *Order,int N,int K)
         C[A[i]]--;
     }
 }
-int main()
+int main_counting()
 {
     int *A,*B,*Order,N=15,K=10,i;
     A=new int[N];
@@ -99,3 +99,71 @@ int main_buck()
         printf("%d ",B[i]);
     return 0;
 }
+
+
+/*
+基数排序
+其用到了Counting 计数排序：Counting是用无序整数出现的次数来决定如何排序，是稳定的排序；
+
+基数排序 将数据按照 位 分开，并从数据的最低有效位到最高有效位依次排序，进而得到有序数据集合。
+
+因为在进行高位排序的时候，低位已经有序了，因此高位不能破坏低位原有的顺序——》必须是稳定排序才可用！
+
+基数排序会用到 计数排序。
+
+不局限于整数， 只要能把元素分割为整数，就能用基数排序。
+
+由于基数排序对每个p位置的位数值使用计数排序，因此基数排序消耗的运行时间是计数排序的p倍，即O（pn+pk）
+
+其对空间的要求与计数排序一样：两个大小为n的数组，一个大小为k的数组。
+
+https://www.cnblogs.com/idreamo/p/8978469.html
+https://www.byvoid.com/zhs/blog/sort-radix
+ */
+
+#include <limits.h>
+#include <math.h>
+#include <stdlib.h>
+#include <string.h>
+
+int rxsort(int *data, int size, int p, int k)
+{
+    int *counts, *temp;
+    int index, pval, i, j, n;
+
+    /*给计数器数组分配空间*/
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+桶排序：
+一、http://www.voidcn.com/article/p-xbzmlplt-bee.html
+二、https://blog.csdn.net/u012243115/article/details/47172787
+三、https://www.byvoid.com/zhs/blog/sort-radix
+将长度为N的待排序序列，划分为M个子空间（桶）；基于映射函数，将待排序的元素映射到不同的桶中；
+
+桶排序利用函数的映射关系，减少了几乎所有的比较工作；
+思考：桶排序映射函数 f(k)计算，相当于快排中的划分，已经把大量的数据分割成了基本有序的数据块（桶），然后在每个桶内进行比较排序。
+
+时间复杂度：
+一、映射到桶，为O(N)
+二、桶内比较排序， 复杂度为  ∑O(Ni * log Ni )
+因此：
+1、映射函数尽量平均分到M个桶内；
+2、尽量增大桶的数量；
+
+——
+思考一下 Hash表的思想 和桶排序的思想；
+ */
