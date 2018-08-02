@@ -138,12 +138,81 @@ int rxsort(int *data, int size, int p, int k)
 
 
 
+int quicksort_partition(int a[], int low, int high){
+    int tmp = a[low];
+
+    int lindex = low+1;
+    int hindex = high;
+    int exchange;
+    while(lindex <= hindex){
+        while (lindex <= hindex && a[lindex] <= tmp){
+            ++lindex;
+        }
+        while (lindex <= hindex && a[hindex] >= tmp){
+            --hindex;
+        }
+        if (lindex < hindex){
+            exchange = a[lindex];
+            a[lindex] = a[hindex];
+            a[hindex] = exchange;
+            --hindex;
+            ++lindex;
+        }
+    }
+    a[low] = a[hindex];
+    a[hindex] = tmp;
+
+    return hindex;
+}
+
+/*
+快速排序 分治法：
+ */
+void quicksort(int a[], int low, int high){
+    if (low >= high){
+        return;
+    }
+    int pivot = quicksort_partition(a, low, high);
+    quicksort(a, low, pivot-1);
+    quicksort(a, pivot+1, high);
+}
+
+int main(){
+    int a[] = {3,5,7,9,2,3,1,0,7,5,4};
+    quicksort(a, 0, 10);
+    for (int i=0; i<11; i++){
+        cout<<a[i]<<'\t';
+    }
+}
 
 
 
 
+int partition(int a[], int low, int high){
+    int tmp = a[low];
+    int lowindex = low+1;
+    int highindex = high;
+    int exchange;
 
-
+    while(lowindex <= highindex){
+        while(lowindex <= highindex && a[lowindex] <= tmp){
+            lowindex++;
+        }
+        while(lowindex <= highindex && a[highindex] >= tmp){
+            highindex--;
+        }
+        if(lowindex < highindex){
+            exchange = a[lowindex];
+            a[lowindex] = a[highindex];
+            a[highindex] = exchange;
+            ++lowindex;
+            --highindex;
+        }
+    }
+    a[low] = a[highindex];
+    a[highindex] = tmp;
+    return highindex;
+}
 
 
 
